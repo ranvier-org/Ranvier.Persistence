@@ -13,7 +13,7 @@ so this repository builds independently; a sibling checkout is supported for coo
 
 - [Ranvier](https://github.com/ranvier-org/Ranvier): the reactive core, `Ranvier.Wire` and `Ranvier.Elmish`
   ([documentation](https://ranvier-org.github.io/Ranvier/)).
-- [Ranvier.Views](https://github.com/ranvier-org/Ranvier.Views): the view layer.
+- [Ranvier.View](https://github.com/ranvier-org/Ranvier.View): the view layer.
 - [Ranvier.Css](https://github.com/ranvier-org/Ranvier.Css): typed CSS and generated bindings.
 
 ## Packages
