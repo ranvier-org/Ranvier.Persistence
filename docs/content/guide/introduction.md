@@ -6,7 +6,7 @@ order: 1
 ## Installation
 
 ```bash frame="terminal"
-dotnet add package Ranvier.Persistence --version 0.1.0-preview.1
+dotnet add package Ranvier.Persistence --version 0.1.1-preview.1
 ```
 
 `Ranvier.Persistence` targets .NET 10 and .NET Standard 2.1, and ships its sources for Fable. It depends on the

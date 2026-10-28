@@ -11,7 +11,7 @@
     <Description>Keyed persisted inputs for Ranvier graphs: signals and keyed collections restored from an IStateStore across a restart or a page reload, with in-memory, file and localStorage stores.</Description>
     <PackageTags>reactive;persistence;state;fable;fsharp</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Version>0.1.0-preview.1</Version>
+    <Version>0.1.1-preview.1</Version>
     <AssemblyVersion>0.0.0.0</AssemblyVersion>
     <RanvierAotClean>true</RanvierAotClean>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

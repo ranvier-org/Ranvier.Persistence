@@ -12,7 +12,7 @@ codecs and migrations.
 Install the .NET 10 adapter from NuGet:
 
 ```shell
-dotnet add package Ranvier.Persistence.Marten --version 0.1.0-preview.1
+dotnet add package Ranvier.Persistence.Marten --version 0.1.1-preview.1
 ```
 
 ```fsharp
