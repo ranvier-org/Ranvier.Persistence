@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <!-- The suite in tests/Ranvier.Persistence.Tests, compiled with Fable and run under Mocha. -->
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+        <TargetFramework>net10.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <IsPackable>false</IsPackable>
+        <IsExcludedFromRootBuild>true</IsExcludedFromRootBuild>
+        <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="Expecto.fs" />
+    </ItemGroup>
+
+    <Import Project="..\..\tests\Ranvier.Persistence.Tests\PersistenceTestFiles.props" />
+
+    <ItemGroup>
+        <Compile Include="Main.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\Ranvier.Persistence\Ranvier.Persistence.fsproj" />
+        <PackageReference Include="Fable.Core" Version="5.3.0" />
+        <PackageReference Include="Fable.Mocha" Version="2.17.0" />
+    </ItemGroup>
+
+</Project>

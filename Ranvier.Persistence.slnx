@@ -1,0 +1,42 @@
+<Solution>
+  <Folder Name="/.environment/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path=".config/dotnet-tools.json" />
+    <File Path="global.json" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Build.targets" />
+    <File Path="nuget.config" />
+    <File Path="README.md" />
+    <File Path="CONTRIBUTOR.md" />
+    <File Path="package.json" />
+  </Folder>
+  <Folder Name="/Build/">
+    <File Path="build.fsx" />
+  </Folder>
+  <Folder Name="/src/">
+    <File Path="src/Directory.Build.props" />
+    <File Path="src/Directory.Build.targets" />
+    <Project Path="src/Ranvier.Persistence/Ranvier.Persistence.fsproj" />
+  </Folder>
+  <Folder Name="/adapters/">
+    <Project Path="adapters/Ranvier.Persistence.KurrentDB/Ranvier.Persistence.KurrentDB.fsproj" />
+    <Project Path="adapters/Ranvier.Persistence.Marten/Ranvier.Persistence.Marten.fsproj" />
+  </Folder>
+  <Folder Name="/samples/">
+    <Project Path="samples/Ranvier.Persistence.Equinox/Ranvier.Persistence.Equinox.fsproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Ranvier.Persistence.Tests/Ranvier.Persistence.Tests.fsproj" />
+    <Project Path="tests/Ranvier.Persistence.Marten.Tests/Ranvier.Persistence.Marten.Tests.fsproj" />
+    <Project Path="tests/Ranvier.Persistence.KurrentDB.Tests/Ranvier.Persistence.KurrentDB.Tests.fsproj" />
+    <Project Path="tests/Ranvier.Persistence.Equinox.Tests/Ranvier.Persistence.Equinox.Tests.fsproj" />
+    <Project Path="tests/Ranvier.Persistence.AotSmoke/Ranvier.Persistence.AotSmoke.fsproj" />
+  </Folder>
+  <Folder Name="/fable/">
+    <Project Path="fable/Ranvier.Persistence.Tests.Fable/Ranvier.Persistence.Tests.Fable.fsproj" />
+  </Folder>
+  <Folder Name="/docs/">
+    <Project Path="docs/docs.fsproj" />
+  </Folder>
+</Solution>

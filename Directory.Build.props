@@ -1,0 +1,40 @@
+<Project>
+    <Import Project="$(MSBuildThisFileDirectory)Local.Build.props" Condition="Exists('$(MSBuildThisFileDirectory)Local.Build.props')" />
+
+    <PropertyGroup>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <RepositoryUrl>https://github.com/ranvier-org/Ranvier.Persistence</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <Authors>shayanhabibi</Authors>
+        <Copyright>Copyright (c) 2026 Shayan Habibi</Copyright>
+        <PackageIcon>ranvier-icon.png</PackageIcon>
+        <PackageProjectUrl>https://ranvier-org.github.io/Ranvier.Persistence/</PackageProjectUrl>
+        <PackageReleaseNotes>Preview release. The API may change before 1.0.</PackageReleaseNotes>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <!-- Fable.Package.SDK sets DebugType=embedded: the PDB (with SourceLink) lives in each dll, so no .snupkg is produced. nuget.org rejects an empty one. -->
+        <IncludeSymbols>false</IncludeSymbols>
+        <UseLocalRanvier Condition="'$(UseLocalRanvier)' == ''">false</UseLocalRanvier>
+        <RanvierRoot Condition="'$(RanvierRoot)' == ''">$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)../Ranvier'))</RanvierRoot>
+        <RanvierVersion>0.1.1-preview.1</RanvierVersion>
+        <RanvierWireVersion>0.1.1-preview.1</RanvierWireVersion>
+        <RanvierElmishVersion>0.1.1-preview.1</RanvierElmishVersion>
+        <RanvierTrace Condition="'$(RanvierTrace)' == '' and '$(Configuration)' == 'Debug'">true</RanvierTrace>
+        <RanvierPackageSuffix Condition="'$(RanvierTrace)' == 'true'">.Traced</RanvierPackageSuffix>
+    </PropertyGroup>
+
+    <!-- Packed projects only: a CI build maps source paths to /_/. -->
+    <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' and ($(MSBuildProjectDirectory.StartsWith('$(MSBuildThisFileDirectory)src')) or $(MSBuildProjectDirectory.StartsWith('$(MSBuildThisFileDirectory)adapters')))">
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    </PropertyGroup>
+
+    <!--
+    Projects opting out of the root build set IsExcludedFromRootBuild, which
+    Directory.Build.targets turns into a no-op Build. Used for Fable projects,
+    which are compiled by fickl rather than by MSBuild.
+    -->
+    <PropertyGroup Condition="'$(IsExcludedFromRootBuild)' == 'true'">
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+</Project>

@@ -1,0 +1,16 @@
+{
+  "name": "ranvier.persistence",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "dotnet fsi build.fsx -- build",
+    "test": "dotnet fsi build.fsx -- test",
+    "check": "dotnet fsi build.fsx -- ci"
+  },
+  "devDependencies": {
+    "mocha": "^12.0.3"
+  }
+}

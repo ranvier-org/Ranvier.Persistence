@@ -1,0 +1,37 @@
+<Project>
+    <PropertyGroup Condition="'$(IsExcludedFromRootBuild)' == 'true'">
+        <BuildDependsOn>BeforeBuild;AfterBuild</BuildDependsOn>
+        <CompileDependsOn />
+    </PropertyGroup>
+
+    <!--
+    `RanvierTrace=true` compiles in the per-graph event log (`RANVIER_TRACE`) and selects the `.Traced` core packages.
+    Debug defaults to traced; any other configuration defaults to untraced.
+    -->
+    <PropertyGroup Condition="'$(RanvierTrace)' == 'true'">
+        <DefineConstants>$(DefineConstants);RANVIER_TRACE</DefineConstants>
+    </PropertyGroup>
+
+    <!--
+    `RanvierAotClean=true` (set by the library projects) compiles without reflection-based formatting
+    and marks the net10.0 build trimmable and AOT-compatible, including when tracing is enabled.
+    -->
+    <PropertyGroup Condition="'$(RanvierAotClean)' == 'true'">
+        <OtherFlags>$(OtherFlags) --reflectionfree</OtherFlags>
+        <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net10.0'))">true</IsAotCompatible>
+    </PropertyGroup>
+
+    <Target Name="ValidateLocalRanvier" BeforeTargets="PrepareForBuild" Condition="'$(UseLocalRanvier)' == 'true'">
+        <Error Condition="!Exists('$(RanvierRoot)/src/Ranvier/Ranvier.fsproj')" Text="RanvierRoot must point to a Ranvier checkout. Run dotnet fsi build.fsx -- dev local." />
+    </Target>
+
+    <!--
+    A traced build packs only under a `.Traced` package id, which a project
+    selects on an explicit `-p:RanvierTrace=true`. The traced and untraced
+    packages hold the same assembly names, namespaces and version.
+    -->
+    <Target Name="RefuseTracedPack" BeforeTargets="GenerateNuspec"
+            Condition="'$(RanvierTrace)' == 'true' and !$(PackageId.EndsWith('.Traced'))">
+        <Error Text="$(PackageId) is built with RanvierTrace=true, the Debug default. Pack with -c Release, or pass -p:RanvierTrace=true to pack $(PackageId).Traced." />
+    </Target>
+</Project>

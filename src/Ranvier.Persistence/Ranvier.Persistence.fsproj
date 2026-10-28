@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net10.0;netstandard2.1</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Tailcalls>false</Tailcalls>
+    <RootNamespace>Ranvier.Persistence</RootNamespace>
+    <AssemblyName>Ranvier.Persistence</AssemblyName>
+    <PackageId>Ranvier.Persistence</PackageId>
+    <PackageId Condition="'$(RanvierTrace)' == 'true'">Ranvier.Persistence.Traced</PackageId>
+    <Title>Ranvier.Persistence</Title>
+    <Description>Keyed persisted inputs for Ranvier graphs: signals and keyed collections restored from an IStateStore across a restart or a page reload, with in-memory, file and localStorage stores.</Description>
+    <PackageTags>reactive;persistence;state;fable;fsharp</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Version>0.1.0-preview.1</Version>
+    <AssemblyVersion>0.0.0.0</AssemblyVersion>
+    <RanvierAotClean>true</RanvierAotClean>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <WarnOn>$(WarnOn);3390</WarnOn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Types.fs" />
+    <Compile Include="PersistTask.fs" />
+    <Compile Include="MemoryStore.fs" />
+    <Compile Include="FileStore.fs" />
+    <Compile Include="LocalStorageStore.fs" />
+    <Compile Include="Persist.fs" />
+    <None Include="README.md" Pack="true" PackagePath="\" />
+    <None Include="../../brand/icon/ranvier-icon.png" Pack="true" PackagePath="\" Visible="false" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(UseLocalRanvier)' == 'true'">
+    <ProjectReference Include="$(RanvierRoot)/src/Ranvier/Ranvier.fsproj" />
+    <ProjectReference Include="$(RanvierRoot)/src/Ranvier.Wire/Ranvier.Wire.fsproj" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(UseLocalRanvier)' != 'true'">
+    <PackageReference Include="Ranvier$(RanvierPackageSuffix)" Version="$(RanvierVersion)" />
+    <PackageReference Include="Ranvier.Wire$(RanvierPackageSuffix)" Version="$(RanvierWireVersion)" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(RanvierTrace)' == 'true'">
+    <AssemblyMetadata Include="RanvierTrace" Value="true" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,29 @@
+name: Contribution
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: contrib-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  commits:
+    name: Conventional commits
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          persist-credentials: false
+          sparse-checkout: .github/scripts
+      - uses: actions/github-script@v9
+        with:
+          script: |
+            const fs = require('node:fs');
+            if (!fs.existsSync('./.github/scripts/contrib.cjs')) return core.warning('The target branch has no contribution checks yet.');
+            await require('./.github/scripts/contrib.cjs').check({context, core});

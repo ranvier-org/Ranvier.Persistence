@@ -1,0 +1,178 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: Persistence (${{ matrix.group }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        group: [dotnet, fable, aot]
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ matrix.group }}-${{ hashFiles('**/*.fsproj', '**/Directory.Build.*', 'nuget.config', '.config/dotnet-tools.json') }}
+          restore-keys: nuget-${{ runner.os }}-${{ matrix.group }}-
+      - name: Run the same checks as local development
+        run: dotnet fsi build.fsx -- test --group ${{ matrix.group }}
+
+  marten:
+    name: Marten store adapter
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_PASSWORD: ranvier-tests
+          POSTGRES_DB: ranvier
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d ranvier"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      RANVIER_MARTEN_CONNECTION: Host=localhost;Port=5432;Database=ranvier;Username=postgres;Password=ranvier-tests
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      - name: Test the adapter against PostgreSQL, untraced and traced
+        run: dotnet fsi build.fsx -- test --group marten
+
+  kurrentdb:
+    name: KurrentDB store adapter
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      kurrentdb:
+        image: docker.kurrent.io/kurrent-latest/kurrentdb@sha256:e5c9d59716174a4a47f9d54d6ce45aaaca48114b7ee668135aeb9f16934d74c8
+        env:
+          KURRENTDB_INSECURE: "true"
+          KURRENTDB_CLUSTER_SIZE: "1"
+        ports:
+          - 2113:2113
+        options: >-
+          --health-cmd "curl --fail --silent http://localhost:2113/health/live"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 24
+    env:
+      RANVIER_KURRENTDB_CONNECTION: kurrentdb://localhost:2113?tls=false
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      - name: Test the adapter against KurrentDB, untraced and traced
+        run: dotnet fsi build.fsx -- test --group kurrentdb
+
+  equinox:
+    name: Equinox FsCodec sample
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      kurrentdb:
+        image: docker.kurrent.io/kurrent-latest/kurrentdb@sha256:e5c9d59716174a4a47f9d54d6ce45aaaca48114b7ee668135aeb9f16934d74c8
+        env:
+          KURRENTDB_INSECURE: "true"
+          KURRENTDB_CLUSTER_SIZE: "1"
+        ports:
+          - 2113:2113
+        options: >-
+          --health-cmd "curl --fail --silent http://localhost:2113/health/live"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 24
+    env:
+      RANVIER_EQUINOX_CONNECTION: esdb://localhost:2113?tls=false
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      - name: Test the sample and run the persisted signal round trips, untraced and traced
+        run: dotnet fsi build.fsx -- test --group equinox
+
+  packages:
+    name: Packages
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+      - name: Pack untraced and traced packages with Fable sources and check them
+        run: dotnet fsi build.fsx -- pack
+      - uses: actions/upload-artifact@v7
+        with:
+          name: nuget-packages
+          path: bin/*.nupkg
+          if-no-files-found: error
+
+  format:
+    name: Formatting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      - run: dotnet fsi build.fsx -- tools
+      - run: dotnet fsi build.fsx -- format --dry-format --quick
+
+  result:
+    name: CI result
+    needs: [checks, marten, kurrentdb, equinox, packages, format]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          for result in $RESULTS; do
+            case "$result" in success) ;; *) exit 1 ;; esac
+          done

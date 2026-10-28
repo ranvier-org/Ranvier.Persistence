@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Version>0.1.0-preview.1</Version>
+    <PackageId>Ranvier.Persistence.Marten</PackageId>
+    <PackageId Condition="'$(RanvierTrace)' == 'true'">Ranvier.Persistence.Marten.Traced</PackageId>
+    <Description>Marten PostgreSQL state storage for Ranvier, with scoped records and optional optimistic concurrency.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <WarnOn>$(WarnOn);3390</WarnOn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="MartenStateStore.fs" />
+    <PackageReference Include="Marten" Version="9.54.1" />
+    <ProjectReference Include="../../src/Ranvier.Persistence/Ranvier.Persistence.fsproj" />
+    <None Include="README.md" Pack="true" PackagePath="/" />
+    <None Include="../../brand/icon/ranvier-icon.png" Pack="true" PackagePath="/" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(RanvierTrace)' == 'true'">
+    <AssemblyMetadata Include="RanvierTrace" Value="true" />
+  </ItemGroup>
+</Project>

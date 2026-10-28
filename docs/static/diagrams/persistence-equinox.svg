@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="266" viewBox="0 0 900 266" role="img" aria-labelledby="title desc">
+  <title id="title">A scoped snapshot through Ranvier, Equinox and FsCodec</title>
+  <desc id="desc">Ranvier passes encoded input records to an Equinox decision, which checks their ETags. FsCodec encodes the complete snapshot as SnapshotV1 JSON. KurrentDB appends against the loaded stream revision. A stream conflict reloads state and reruns the decision, checking record tokens again.</desc>
+  <rect width="900" height="266" rx="16" fill="#f3f6fb"/>
+  <g font-family="system-ui,sans-serif" fill="#16243a">
+    <text x="24" y="34" font-size="20" font-weight="700">One scope, one atomic snapshot append</text>
+    <g fill="#fff" stroke="#8cabc8" stroke-width="2">
+      <rect x="24" y="62" width="174" height="104" rx="12"/>
+      <rect x="246" y="62" width="174" height="104" rx="12"/>
+      <rect x="468" y="62" width="174" height="104" rx="12"/>
+      <rect x="690" y="62" width="186" height="104" rx="12"/>
+    </g>
+    <g font-size="16" text-anchor="middle">
+      <text x="111" y="91" font-weight="700">Ranvier</text>
+      <text x="111" y="119">Encoded inputs</text><text x="111" y="144">SaveMany</text>
+      <text x="333" y="91" font-weight="700">Equinox</text>
+      <text x="333" y="119">Current state</text><text x="333" y="144">Check ETags</text>
+      <text x="555" y="91" font-weight="700">FsCodec</text>
+      <text x="555" y="119">SnapshotV1</text><text x="555" y="144">JSON records</text>
+      <text x="783" y="91" font-weight="700">KurrentDB</text>
+      <text x="783" y="119">Expected revision</text><text x="783" y="144">Atomic append</text>
+    </g>
+    <text x="555" y="246" font-size="16" text-anchor="middle">Stream conflict: reload state, rerun decision, recheck record ETags</text>
+  </g>
+  <g stroke="#3668a5" stroke-width="3" fill="none">
+    <path d="M208 114h28m-9-7 9 7-9 7"/>
+    <path d="M430 114h28m-9-7 9 7-9 7"/>
+    <path d="M652 114h28m-9-7 9 7-9 7"/>
+    <path d="M783 178v30H333v-30m-7 9 7-9 7 9"/>
+  </g>
+</svg>

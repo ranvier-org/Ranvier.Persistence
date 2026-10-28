@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <!--
+    A NativeAOT app over Ranvier.Persistence, Ranvier and Ranvier.Wire.
+    `dotnet publish -c Release -r <rid>` fails on any IL2xxx/IL3xxx warning: the assemblies are rooted, so ILC
+    analyses their whole public surface. The published binary exits non-zero when an exception or a message text
+    differs from the expected text.
+    -->
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net10.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <IsPackable>false</IsPackable>
+        <PublishAot>true</PublishAot>
+        <TrimmerSingleWarn>false</TrimmerSingleWarn>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <OtherFlags>$(OtherFlags) --reflectionfree</OtherFlags>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="PersistSmoke.fs" />
+        <Compile Include="Program.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="../../src/Ranvier.Persistence/Ranvier.Persistence.fsproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <TrimmerRootAssembly Include="Ranvier" />
+        <TrimmerRootAssembly Include="Ranvier.Persistence" />
+        <TrimmerRootAssembly Include="Ranvier.Wire" />
+    </ItemGroup>
+
+</Project>

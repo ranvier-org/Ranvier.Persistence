@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "fantomas": {
+      "version": "8.1.0",
+      "commands": [
+        "fantomas"
+      ],
+      "rollForward": true
+    },
+    "fickl": {
+      "version": "0.7.2",
+      "commands": [
+        "fickl"
+      ],
+      "rollForward": true
+    },
+    "easybuild.shipit": {
+      "version": "3.3.0",
+      "commands": [
+        "shipit"
+      ],
+      "rollForward": false
+    }
+  }
+}

@@ -1,0 +1,16 @@
+<Project>
+    <!-- The persistence suite, in compile order. Ranvier.Persistence.Tests and fable/Ranvier.Persistence.Tests.Fable both compile it. -->
+    <ItemGroup>
+        <Compile Include="$(MSBuildThisFileDirectory)Scaffold.fs" Link="Scaffold.fs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Support.fs" Link="Support.fs" />
+        <Compile Include="$(MSBuildThisFileDirectory)StoreConformance.fs" Link="StoreConformance.fs" />
+        <Compile Include="$(MSBuildThisFileDirectory)MemoryStore.fs" Link="MemoryStore.fs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Loading.fs" Link="Loading.fs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Coalescing.fs" Link="Coalescing.fs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Durability.fs" Link="Durability.fs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Collections.fs" Link="Collections.fs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Position.fs" Link="Position.fs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Restore.fs" Link="Restore.fs" />
+        <Compile Include="$(MSBuildThisFileDirectory)LocalStorage.fs" Link="LocalStorage.fs" />
+    </ItemGroup>
+</Project>

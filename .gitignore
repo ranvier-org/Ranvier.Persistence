@@ -1,0 +1,26 @@
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+.fake
+*.fs.jsx
+*.fs.js
+.idea
+/ScratchTests/
+# docs output (fsdocs / nacara)
+/output/
+/.fsdocs/
+/tmp/
+/docs/output/
+node_modules/
+fable_modules/
+fable-modules/
+Local.Build.props
+**/out/
+playwright-report/
+test-results/
+/artifacts/
+/.config/.tool-restore/
+/dist/
+/bin/

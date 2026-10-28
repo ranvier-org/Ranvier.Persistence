@@ -1,0 +1,45 @@
+name: ShipIt
+
+on:
+  workflow_run:
+    workflows: [CI]
+    branches: [main, master]
+    types: [completed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: shipit-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: false
+
+jobs:
+  release-pr:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_repository.full_name == github.repository &&
+      !startsWith(github.event.workflow_run.head_commit.message, 'chore: release ')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_branch }}
+          fetch-depth: 0
+          token: ${{ secrets.SHIPIT_TOKEN || github.token }}
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: '10.0.x'
+      - name: Prepare release pull request
+        env:
+          EXPECTED_SHA: ${{ github.event.workflow_run.head_sha }}
+          RELEASE_BRANCH: ${{ github.event.workflow_run.head_branch }}
+          GITHUB_TOKEN: ${{ secrets.SHIPIT_TOKEN || github.token }}
+          GH_TOKEN: ${{ secrets.SHIPIT_TOKEN || github.token }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          dotnet fsi build.fsx -- tools
+          dotnet fsi build.fsx -- shipit github --allow-branch "$RELEASE_BRANCH" --mode pull-request --skip-merge-commit

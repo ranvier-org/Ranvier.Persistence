@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <GenerateProgramFile>false</GenerateProgramFile>
+    <WarnOn>$(WarnOn);3390</WarnOn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="StateStore.fs" />
+    <Compile Include="Program.fs" />
+    <PackageReference Include="Equinox.EventStoreDb" Version="4.1.0" />
+    <PackageReference Include="FsCodec.SystemTextJson" Version="3.1.2" />
+    <ProjectReference Include="../../src/Ranvier.Persistence/Ranvier.Persistence.fsproj" />
+  </ItemGroup>
+</Project>

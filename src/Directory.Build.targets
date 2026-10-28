@@ -1,0 +1,48 @@
+<Project>
+    <Import Project="../Directory.Build.targets" />
+    <PropertyGroup Condition="'$(FablePackageType)' != 'none'">
+        <PackageTags>$(PackageTags);fable-javascript;fable-dotnet</PackageTags>
+    </PropertyGroup>
+    <!--
+    Between two projects that both set `RanvierExactSiblingVersions=true`, the nuspec dependency is exactly the
+    referenced project's own version (`[x]`), whatever that version is. A reference to any other project keeps
+    NuGet's minimum-version range.
+    -->
+    <Target Name="RanvierExactSibling" Returns="@(_RanvierExactSiblingSelf)">
+        <ItemGroup>
+            <_RanvierExactSiblingSelf Include="$(MSBuildProjectFullPath)" Condition="'$(RanvierExactSiblingVersions)' == 'true'" />
+        </ItemGroup>
+    </Target>
+    <Target Name="PinSiblingProjectVersions" AfterTargets="_GetProjectReferenceVersions"
+            Condition="'$(RanvierExactSiblingVersions)' == 'true'">
+        <MSBuild Projects="@(_ProjectReferencesWithVersions)" Targets="RanvierExactSibling"
+                 SkipNonexistentTargets="true" SkipNonexistentProjects="true" Properties="BuildProjectReferences=false">
+            <Output TaskParameter="TargetOutputs" ItemName="_RanvierExactSibling" />
+        </MSBuild>
+        <ItemGroup>
+            <_RanvierLooseReference Include="@(_ProjectReferencesWithVersions)" Exclude="@(_RanvierExactSibling)" />
+            <_RanvierPinnedReference Include="@(_ProjectReferencesWithVersions)" Exclude="@(_RanvierLooseReference)" />
+            <_RanvierPinnedReference>
+                <ProjectVersion>[%(_RanvierPinnedReference.ProjectVersion)]</ProjectVersion>
+            </_RanvierPinnedReference>
+            <_ProjectReferencesWithVersions Remove="@(_RanvierPinnedReference)" />
+            <_ProjectReferencesWithVersions Include="@(_RanvierPinnedReference)" />
+        </ItemGroup>
+    </Target>
+    <Target Name="CreateStandaloneFableProject" AfterTargets="CreateFablePackageFiles"
+            Condition="'$(FablePackageType)' == 'library'">
+        <ItemGroup>
+            <_FableSource Include="@(_PackageFiles)"
+                          Condition="'%(Extension)' == '.fs' or '%(Extension)' == '.fsi'" />
+        </ItemGroup>
+        <!-- Written beside the nuspec, so a pack with its own NuspecOutputPath adds nothing to obj. -->
+        <MakeDir Directories="$(NuspecOutputPath)fable" />
+        <WriteLinesToFile File="$(NuspecOutputPath)fable/$(MSBuildProjectFile)" Overwrite="true"
+                          Lines="&lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;;  &lt;PropertyGroup&gt;;    &lt;TargetFramework&gt;netstandard2.1&lt;/TargetFramework&gt;;  &lt;/PropertyGroup&gt;;  &lt;ItemGroup&gt;;@(_FableSource-&gt;'    &lt;Compile Include=&quot;%(Identity)&quot; /&gt;');  &lt;/ItemGroup&gt;;&lt;/Project&gt;" />
+        <ItemGroup>
+            <_PackageFiles Remove="$(MSBuildProjectFullPath)" />
+            <_PackageFiles Include="$(NuspecOutputPath)fable/$(MSBuildProjectFile)"
+                           Pack="true" PackagePath="fable/" BuildAction="None" />
+        </ItemGroup>
+    </Target>
+</Project>

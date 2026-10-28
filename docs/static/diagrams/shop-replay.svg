@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="250" viewBox="0 0 900 250" role="img" aria-labelledby="title desc">
+  <title id="title">From a production incident to a traced replay</title>
+  <desc id="desc">The untraced Release shop records a cart checkpoint and input journal. A fresh traced Debug shop restores the checkpoint and replays the pending and completed request sequence without live calls. Its receipt repeats the incorrect total, and the trace explains the stale quote.</desc>
+  <rect width="900" height="250" rx="16" fill="#f3f6fb"/>
+  <g font-family="system-ui,sans-serif" fill="#16243a">
+    <text x="24" y="34" font-size="20" font-weight="700">Same inputs and completion order, richer diagnostics</text>
+    <g fill="#fff" stroke="#8cabc8" stroke-width="2">
+      <rect x="24" y="64" width="174" height="110" rx="12"/>
+      <rect x="246" y="64" width="174" height="110" rx="12"/>
+      <rect x="468" y="64" width="174" height="110" rx="12"/>
+      <rect x="690" y="64" width="186" height="110" rx="12"/>
+    </g>
+    <g font-size="16" text-anchor="middle">
+      <text x="111" y="94" font-weight="700">Production</text>
+      <text x="111" y="123">Release, untraced</text><text x="111" y="151">Async quote race</text>
+      <text x="333" y="94" font-weight="700">Saved recording</text>
+      <text x="333" y="123">Cart checkpoint</text><text x="333" y="151">Input journal</text>
+      <text x="555" y="94" font-weight="700">Development</text>
+      <text x="555" y="123">Debug, traced</text><text x="555" y="151">Zero live calls</text>
+      <text x="783" y="94" font-weight="700">Same bug</text>
+      <text x="783" y="123">$76.50 receipt</text><text x="783" y="151">Trace explains why</text>
+    </g>
+    <text x="450" y="216" font-size="16" text-anchor="middle">Pending → newer quote: $67.50 → stale quote: $76.50</text>
+  </g>
+  <g stroke="#3668a5" stroke-width="3" fill="none">
+    <path d="M208 119h28m-9-7 9 7-9 7"/>
+    <path d="M430 119h28m-9-7 9 7-9 7"/>
+    <path d="M652 119h28m-9-7 9 7-9 7"/>
+  </g>
+</svg>
