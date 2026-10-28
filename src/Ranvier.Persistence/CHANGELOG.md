@@ -1,4 +1,5 @@
 ---
+last_commit_released: 1b53d561eb8fc97ae8c3031aa980ed3d0a80aca9
 updaters:
   - xml:
       file: Ranvier.Persistence.fsproj
