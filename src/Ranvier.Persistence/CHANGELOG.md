@@ -1,5 +1,7 @@
 ---
 last_commit_released: 058ddf2c9a83d69faf8f1a2965eb25676d1cb4fb
+include:
+  - ../../Directory.Build.props
 updaters:
   - xml:
       file: Ranvier.Persistence.fsproj

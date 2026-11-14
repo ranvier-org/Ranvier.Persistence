@@ -10,16 +10,16 @@
         <Copyright>Copyright (c) 2026 Shayan Habibi</Copyright>
         <PackageIcon>ranvier-icon.png</PackageIcon>
         <PackageProjectUrl>https://ranvier-org.github.io/Ranvier.Persistence/</PackageProjectUrl>
-        <PackageReleaseNotes>Preview release. The API may change before 1.0.</PackageReleaseNotes>
+        <PackageReleaseNotes>Pre-1.0 release. The API may change before 1.0.</PackageReleaseNotes>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <!-- Fable.Package.SDK sets DebugType=embedded: the PDB (with SourceLink) lives in each dll, so no .snupkg is produced. nuget.org rejects an empty one. -->
         <IncludeSymbols>false</IncludeSymbols>
         <UseLocalRanvier Condition="'$(UseLocalRanvier)' == ''">false</UseLocalRanvier>
         <RanvierRoot Condition="'$(RanvierRoot)' == ''">$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)../Ranvier'))</RanvierRoot>
-        <RanvierVersion>0.1.1-preview.1</RanvierVersion>
-        <RanvierWireVersion>0.1.1-preview.1</RanvierWireVersion>
-        <RanvierElmishVersion>0.1.1-preview.1</RanvierElmishVersion>
+        <RanvierVersion>0.2.0</RanvierVersion>
+        <RanvierWireVersion>0.2.0</RanvierWireVersion>
+        <RanvierElmishVersion>0.2.0</RanvierElmishVersion>
         <RanvierTrace Condition="'$(RanvierTrace)' == '' and '$(Configuration)' == 'Debug'">true</RanvierTrace>
         <RanvierPackageSuffix Condition="'$(RanvierTrace)' == 'true'">.Traced</RanvierPackageSuffix>
     </PropertyGroup>
