@@ -1,0 +1,20 @@
+version: 2
+# Declared so Dependabot's proxy allows this host: a feed named only in nuget.config is blocked.
+registries:
+  partas-build:
+    type: nuget-feed
+    url: https://nuget.cloudsmith.io/shayanhabibi/shayanhabibi-partas-build/v3/index.json
+
+updates:
+  # Keeps the fickl tool in .config/dotnet-tools.json on the latest release; nothing else is rolled.
+  - package-ecosystem: nuget
+    directory: "/"
+    registries:
+      - partas-build
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 1
+    allow:
+      - dependency-name: "fickl"
+    commit-message:
+      prefix: "chore(deps)"
