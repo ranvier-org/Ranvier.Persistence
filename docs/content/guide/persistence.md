@@ -4,7 +4,7 @@ order: 26
 ---
 
 :::info
-Preview — `Ranvier.Persistence` is pre-release; its APIs and stored record format may change.
+Pre-1.0 — the APIs and stored record format of `Ranvier.Persistence` may change.
 :::
 
 `Ranvier.Persistence` restores input state before building a graph, then saves changes after
