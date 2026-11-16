@@ -1,5 +1,5 @@
 ---
-last_commit_released: 326cd231ca1907341207878b66c8f8052f674b9b
+last_commit_released: c762ac8f7df6bae848f4837b2de77561053dbe7a
 include:
   - ../../Directory.Build.props
 depends_on:
@@ -13,6 +13,14 @@ updaters:
 # Changelog
 
 This changelog is generated from conventional commits by [EasyBuild.ShipIt](https://github.com/easybuild-org/EasyBuild.ShipIt).
+
+## 0.1.2 - 2026-11-16
+
+### 🐞 Bug Fixes
+
+* *(adapters)* Set the adapters' minimum FSharp.Core to 10.0.100 (#6) ([c762ac8](https://github.com/ranvier-org/Ranvier.Persistence/commit/c762ac8f7df6bae848f4837b2de77561053dbe7a))
+
+<strong><small>[View changes on Github](https://github.com/ranvier-org/Ranvier.Persistence/compare/326cd231ca1907341207878b66c8f8052f674b9b..c762ac8f7df6bae848f4837b2de77561053dbe7a)</small></strong>
 
 ## 0.1.1 - 2026-11-14
 
