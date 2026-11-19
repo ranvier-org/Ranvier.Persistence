@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "title": "Persistence",
+  "description": "Persisted reactive signals, journals, and event-sourced adapters for Equinox, Marten, and KurrentDB.",
+  "index": "index.md",
+  "sections": [
+    {
+      "title": "Getting started",
+      "items": [
+        "index.md",
+        "guide/introduction.md"
+      ]
+    },
+    {
+      "title": "Core persistence",
+      "items": [
+        "guide/persistence.md",
+        "guide/journal-restore.md"
+      ]
+    },
+    {
+      "title": "Stores and replay",
+      "items": [
+        "guide/persistence-marten.md",
+        "guide/persistence-kurrentdb.md",
+        "guide/persistence-equinox.md",
+        "guide/shop-replay.md"
+      ]
+    }
+  ]
+}
