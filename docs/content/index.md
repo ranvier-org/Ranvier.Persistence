@@ -1,10 +1,8 @@
 ---
 title: Ranvier.Persistence
 description: Persisted Ranvier inputs restored from in-memory, file, localStorage, PostgreSQL and KurrentDB stores
-layout: bare
+toc: false
 ---
-
-# Ranvier.Persistence
 
 Keyed persisted inputs for [Ranvier](https://ranvier-org.github.io/Ranvier/) graphs on .NET and Fable:
 signals and keyed collections restored from a state store across a restart or a page reload.
