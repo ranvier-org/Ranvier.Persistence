@@ -1,5 +1,5 @@
 ---
-last_commit_released: c762ac8f7df6bae848f4837b2de77561053dbe7a
+last_commit_released: d1fd751ad062179d661b7cb3c4f1647307633716
 include:
   - ../../Directory.Build.props
 depends_on:
@@ -13,6 +13,18 @@ updaters:
 # Changelog
 
 This changelog is generated from conventional commits by [EasyBuild.ShipIt](https://github.com/easybuild-org/EasyBuild.ShipIt).
+
+## 0.1.3 - 2026-11-23
+
+### 🐞 Bug Fixes
+
+* *(deps)* Align Ranvier core floors to 0.2.1 ([d1fd751](https://github.com/ranvier-org/Ranvier.Persistence/commit/d1fd751ad062179d661b7cb3c4f1647307633716))
+
+### 🔗 Dependencies
+
+* `src/Ranvier.Persistence` updated to 0.1.2
+
+<strong><small>[View changes on Github](https://github.com/ranvier-org/Ranvier.Persistence/compare/c762ac8f7df6bae848f4837b2de77561053dbe7a..d1fd751ad062179d661b7cb3c4f1647307633716)</small></strong>
 
 ## 0.1.2 - 2026-11-16
 
