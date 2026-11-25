@@ -10,19 +10,19 @@
         <Content Include="static\**" CopyToOutputDirectory="Never"/>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Nacara.Core" Version="2.0.0-*"/>
-        <PackageReference Include="Nacara.Plugin.Markdown" Version="1.0.0-*"/>
-        <PackageReference Include="Nacara.Plugin.Highlight.TreeSitter" Version="1.0.0-*"/>
-        <PackageReference Include="Nacara.Plugin.Literate" Version="1.0.0-*"/>
-        <PackageReference Include="Nacara.Plugin.Search" Version="1.0.0-*"/>
-        <PackageReference Include="Nacara.Plugin.Sitemap" Version="1.0.0-*"/>
-        <PackageReference Include="Nacara.Plugin.LinkValidator" Version="1.0.0-*"/>
-        <PackageReference Include="Nacara.Plugin.Linter.Rumdl" Version="1.0.0-*"/>
-        <PackageReference Include="Nacara.Plugin.Versions" Version="1.0.0-*"/>
-        <PackageReference Include="Nacara.Plugin.Assets.LightningCss" Version="1.0.0-*"/>
-        <PackageReference Include="Nacara.Plugin.Assets.Esbuild" Version="1.0.0-*"/>
-        <PackageReference Include="Nacara.Plugin.Assets.Nuglify" Version="1.0.0-*"/>
-        <PackageReference Include="Nacara.Plugin.Deploy.GitHubPages" Version="1.0.0-*"/>
-        <PackageReference Include="Nacara.Theme.Default" Version="1.0.0-*"/>
+        <PackageReference Include="Nacara.Core" Version="2.0.0-beta.7"/>
+        <PackageReference Include="Nacara.Plugin.Markdown" Version="1.0.0-beta.3"/>
+        <PackageReference Include="Nacara.Plugin.Highlight.TreeSitter" Version="1.0.0-beta.3"/>
+        <PackageReference Include="Nacara.Plugin.Literate" Version="1.0.0-beta.1"/>
+        <PackageReference Include="Nacara.Plugin.Search" Version="1.0.0-beta.3"/>
+        <PackageReference Include="Nacara.Plugin.Sitemap" Version="1.0.0-beta.1"/>
+        <PackageReference Include="Nacara.Plugin.LinkValidator" Version="1.0.0-beta.3"/>
+        <PackageReference Include="Nacara.Plugin.Linter.Rumdl" Version="1.0.0-beta.1"/>
+        <PackageReference Include="Nacara.Plugin.Versions" Version="1.0.0-beta.2"/>
+        <PackageReference Include="Nacara.Plugin.Assets.LightningCss" Version="1.0.0-beta.1"/>
+        <PackageReference Include="Nacara.Plugin.Assets.Esbuild" Version="1.0.0-beta.1"/>
+        <PackageReference Include="Nacara.Plugin.Assets.Nuglify" Version="1.0.0-beta.1"/>
+        <PackageReference Include="Nacara.Plugin.Deploy.GitHubPages" Version="1.0.0-beta.2"/>
+        <PackageReference Include="Nacara.Theme.Default" Version="1.0.0-beta.15"/>
     </ItemGroup>
 </Project>
